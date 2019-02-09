@@ -1,0 +1,5 @@
+<% if current_user.admin? %>
+  <%= render "admin" , users: @users %>
+<% else %>
+  <%= render "teacher" , assigned_subjects: @assigned_subjects %>
+<% end %>

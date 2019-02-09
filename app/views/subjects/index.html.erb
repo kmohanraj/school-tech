@@ -1,0 +1,51 @@
+<div class="row">
+   <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">All Subjects </h3>
+                 <div class="actions">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <%= link_to new_subject_path do %>
+                                <span class="btn btn-info btn-trans btn-sm"><i class="fa fa-plus"></i>New Subject</span>
+                                <% end %>
+                            </div>
+                        </div>
+                  </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Sub name</th>
+                            <th>Sub code</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <% @subjects.each do |subject| %>
+                            <tr>
+                              <td><%= subject.try(:sub_name) %></td>
+                              <td><%= subject.try(:sub_code) %></td>
+                              <td><%= subject.created_at.strftime(" %d-%b-%y")%></td>
+                              <td>
+                                <%= link_to "<i class='fa fa-pencil fa-lg'></i>".html_safe, edit_subject_path(subject), data: {confirm: "Are sure want to edit this."} %>
+                                <%= link_to "<i class='fa fa-trash fa-lg'></i>".html_safe,subject, method: :delete, data: {confirm: "Are sure want to delete this subject."} %>
+                                <%= link_to "Assign Subject",assign_path(subject),class: "btn btn-info btn-sm" %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-12 text-center">
+                        <%= will_paginate @subjects, container: false%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

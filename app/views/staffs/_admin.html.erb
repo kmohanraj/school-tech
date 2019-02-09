@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-6  col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Students Rank</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                          <th>Student Code</th>
+                          <th>Student Name</th>
+                          <th>Marks</th>
+                          <th>Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% rank_list = 0 %>
+                      <% total_temp = 0 %>
+                        <% @rank_lists.all.each do |rank| %>
+                          <tr>
+                            <% student = @students.find_by(id: rank.student_id)%>
+                            <td><%= student.try(:student_code) %></td>
+                            <td><%= student.try(:student_name) %></td>
+                            <td><%= rank.try(:total) %></td>
+                            <th>
+                              <% if total_temp == rank.total %>
+                                <%= rank_list %></th>
+                              <% else %>
+                                <%= rank_list += 1%></th>
+                              <% end %>
+                          </tr>
+                          <% total_temp = rank.try(:total) %>
+                        <% end %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Staffs List</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% @users.each do |user| %>
+                        <tr>
+                            <td><%= user.try(:name) %></td>
+                            <td><%= user.try(:email) %></td>
+                            <td><%= link_to "<i class='fa fa-trash'></i>".html_safe, admin_destroy_user_path(user), method: :delete, data: { confirm: "Are you sure?, if delete a user and assigned subject are also deleted." } %>
+
+                            </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

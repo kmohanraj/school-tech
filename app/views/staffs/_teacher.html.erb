@@ -1,0 +1,75 @@
+<div class="row">
+   <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Assigned Subjects</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                              <th>Subject Name</th>
+                              <th>Subject Code</th>
+                              <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @assigned_subjects.each do |user|%>
+                            <tr>
+                                <% subject =  Subject.find_by(id: user.subject_id) %>
+                                <td><%= subject.try(:sub_name) %></td>
+                                <td><%= subject.try(:sub_code) %></td>
+                                <td>
+                                    <%= link_to "Assign Mark".html_safe,new_mark_path(user), class: "btn btn-info btn-sm" %>
+                                    <%#= link_to "<i class='fa fa-trash fa-lg'></i>".html_safe, category, method: :delete, data: {confirm: "Are you sure delete."} %>  
+                                </td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Assigned Marks</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                         <thead>
+                            <tr>
+                              <th>Subject Code</th>
+                              <th>Student Code</th>
+                              <th>Student Name</th>
+                              <th>Marks</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            <% @assigned_marks.each do |mark| %>
+                              <tr>
+                                <td><%= mark.subject.try(:sub_code) %></td>
+                                <td><%= mark.student.try(:student_code) %></td>
+                                <td><%= mark.student.try(:student_name) %></td>
+                                <td><%= mark.try(:mark)%></td>
+                                <td>
+                                   <%= link_to "<i class='fa fa-pencil fa-lg'></i>".html_safe, edit_staff_path(mark.id), data: {confirm: "Are sure want to edit this."} %>
+                                  </td>
+
+                              </tr>
+                            <% end %>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mark: 1
+  total: 1
+  subject: one
+  student: one
+  user: one
+
+two:
+  mark: 1
+  total: 1
+  subject: two
+  student: two
+  user: two

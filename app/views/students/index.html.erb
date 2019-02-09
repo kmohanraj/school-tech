@@ -1,0 +1,53 @@
+<div class="row">
+   <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Students Records</h3>
+                 <div class="actions">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <%= link_to new_student_path do %>
+                                <span class="btn btn-info btn-trans btn-sm"><i class="fa fa-plus"></i>New Student</span>
+                                <% end %>
+                            </div>
+                        </div>
+                  </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Student name</th>
+                            <th>Student code</th>
+                            <th>Created At</th>
+                            <th colspan="3">Actions</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <% @students.each do |student| %>
+                            <tr>
+                              <td><%= student.try(:student_name) %></td>
+                              <td><%= student.try(:student_code) %></td>
+                              <td><%= student.created_at.strftime(" %d-%b-%y")%></td>
+
+                              <td>
+                                <%#= link_to 'Show', student %>
+                                 <%= link_to "<i class='fa fa-pencil fa-lg'></i>".html_safe, edit_student_path(student), data: {confirm: "Are sure want to edit this."} %>
+                                 <%#= link_to "<i class='fa fa-trash fa-lg'></i>".html_safe,student, method: :delete, data: {confirm: "Are sure want to delete this."} %>
+                                <%#= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-12 text-center">
+                        <%= will_paginate @students, container: false%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

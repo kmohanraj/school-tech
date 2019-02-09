@@ -1,0 +1,69 @@
+<div class="row">
+	<div class="col-md-12">
+	    <div class="panel panel-default">
+	        <div class="panel-heading">
+	            <h3 class="panel-title">Horizontal form</h3>
+	        </div>
+	        <div class="panel-body">
+	        	<%= form_for(@assign_mark, url: assign_edit_path(params[:id]), method: :put, class: "form-horizontal", id: "form") do |f| %>
+ 	  	        	<% @subject = Subject.find_by(id: @assign_mark.subject_id)%>
+	        		<div class="row">
+					  <div class="col-md-4">
+					  	<% student = Student.find_by(id: @assign_mark.student_id) %>
+						<%= f.label :'student id', class: "col-sm-6 control-label"%>
+					    <%= text_field_tag :student_code, "", value: student.student_code, disabled: true, class: "form-control"%>
+					    <%= f.hidden_field :student_id %>
+					  </div>
+					  <div class="col-md-4">
+ 	  	                <%= f.label :'sub code', class: "col-sm-6 control-label"%>
+						<%= f.text_field :subject_code, value: @subject.try(:sub_name), class: "form-control", disabled: true%>
+	      				<%= f.hidden_field :subject_id, value: @subject.try(:id)%>
+					  </div>
+					  <div class="col-md-4">
+						<%= f.label :'mark', class: "col-sm-6 control-label"%>
+						<%= f.number_field :mark, class: "form-control", required: true, max: "100", placeholder: "100"%>
+					  </div>
+					</div>
+					<br>
+	               <div class="form-group">
+                      <div class="col-sm-offset-4 col-sm-8" style="padding-top: 30px;">
+                        <%= f.submit "Update Mark", class: "btn btn-primary" %>
+                        <%= link_to 'Back', staffs_path, class: "btn btn-primary" %>
+                      </div>
+                  </div>
+	            <% end %>    
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    app.formValidation();
+});
+</script>
+
+<style type="text/css">
+	#assign_mark_student_id {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+</style>
+
+<script type="text/javascript">
+	$('#new_assign_mark').valid();
+</script>

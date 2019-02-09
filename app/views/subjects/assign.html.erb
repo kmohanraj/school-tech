@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Assign Staff</h3>
+          </div>
+          <div class="panel-body">
+              <%= form_for(AssignSubject.new, url: assign_subject_path, class: "form-horizontal form-border") do |f| %>
+                    
+                   <div class="field">
+                      <div class="col-sm-6">
+                          <label class="col-sm-6 control-label">Subject Code</label>
+                          <% @subject = Subject.find_by(id: params[:id])%>
+                          <%= f.text_field :subject, value: @subject.try(:sub_code), class: "form-control", disabled: true %>
+                          <%= f.hidden_field :subject_id, value: @subject.try(:id)%>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="col-sm-6">
+                          <label class="col-sm-6 control-label">Assign to Staff</label>
+                          <% users = User.where.not(role: :admin)%>
+                          <%= f.collection_select :user_id , users.all, :id, :name, prompt: "Select Staff"%>
+                       </div>
+                    </div>
+                   <div class="field">
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-offset-4 col-sm-8" style="padding-top: 30px;">
+                        <%= f.submit "Assign ", class: "btn btn-primary" %>
+                        <%= link_to 'Back', subjects_path, class: "btn btn-primary" %>
+
+                      </div>
+                  </div>
+              <% end %>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  #assign_subject_user_id {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+</style>

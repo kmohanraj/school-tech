@@ -1,0 +1,2 @@
+class RankList < ApplicationRecord
+end
